@@ -1,129 +1,121 @@
 # MathOperation.java
-Let's expand on your provided `Main` class to include the `Operation` class that performs the mathematical operations. Below is a complete version with both classes, `Main` and `Operation`, working together.
 
-### Main.java
+Here's a menu-driven Java program that performs basic mathematical operations (addition, subtraction, multiplication, and division) using a class with corresponding methods. The program uses a `switch` statement to select the appropriate operation based on user input.
 
-```java
-import java.util.Scanner;
-
-public class Main {
-    public static void main(String[] args) {
-        int flag = 1;
-        Scanner s = new Scanner(System.in);
-
-        while (flag == 1) {
-            System.out.println("Hello, let's do Mathematical operations");
-            System.out.print("Do you like to continue? (1 for yes, 0 for no): ");
-            flag = s.nextInt();
-
-            if (flag != 1) {
-                break;
-            }
-
-            System.out.print("Enter the first value: ");
-            int num1 = s.nextInt();
-            System.out.print("Enter the second value: ");
-            int num2 = s.nextInt();
-
-            Operation o = new Operation(num1, num2);
-            o.Mathopr();
-        }
-        s.close();
-    }
-}
-```
-
-### Operation.java
+### MathOperations.java
 
 ```java
 import java.util.Scanner;
 
-public class Operation {
-    private int num1;
-    private int num2;
+public class MathOperations {
 
-    public Operation(int num1, int num2) {
-        this.num1 = num1;
-        this.num2 = num2;
-    }
-
-    public void addition() {
-        int result = num1 + num2;
+    // Method for addition
+    public void addition(double num1, double num2) {
+        double result = num1 + num2;
         System.out.println("Result of addition: " + result);
     }
 
-    public void subtraction() {
-        int result = num1 - num2;
+    // Method for subtraction
+    public void subtraction(double num1, double num2) {
+        double result = num1 - num2;
         System.out.println("Result of subtraction: " + result);
     }
 
-    public void multiplication() {
-        int result = num1 * num2;
+    // Method for multiplication
+    public void multiplication(double num1, double num2) {
+        double result = num1 * num2;
         System.out.println("Result of multiplication: " + result);
     }
 
-    public void division() {
+    // Method for division
+    public void division(double num1, double num2) {
         if (num2 != 0) {
-            double result = (double) num1 / num2;
+            double result = num1 / num2;
             System.out.println("Result of division: " + result);
         } else {
             System.out.println("Error: Division by zero is not allowed.");
         }
     }
 
-    public void Mathopr() {
-        Scanner s = new Scanner(System.in);
-        System.out.println("Choose an operation:");
-        System.out.println("1. Addition");
-        System.out.println("2. Subtraction");
-        System.out.println("3. Multiplication");
-        System.out.println("4. Division");
-        System.out.print("Enter your choice: ");
-        int choice = s.nextInt();
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        MathOperations operations = new MathOperations();
 
-        switch (choice) {
-            case 1:
-                addition();
+        while (true) {
+            System.out.println("Choose an operation:");
+            System.out.println("1. Addition");
+            System.out.println("2. Subtraction");
+            System.out.println("3. Multiplication");
+            System.out.println("4. Division");
+            System.out.println("5. Exit");
+            System.out.print("Enter your choice: ");
+            int choice = scanner.nextInt();
+
+            if (choice == 5) {
+                System.out.println("Exiting the program.");
                 break;
-            case 2:
-                subtraction();
-                break;
-            case 3:
-                multiplication();
-                break;
-            case 4:
-                division();
-                break;
-            default:
-                System.out.println("Invalid choice. Please try again.");
+            }
+
+            System.out.print("Enter first number: ");
+            double num1 = scanner.nextDouble();
+
+            System.out.print("Enter second number: ");
+            double num2 = scanner.nextDouble();
+
+            switch (choice) {
+                case 1:
+                    operations.addition(num1, num2);
+                    break;
+                case 2:
+                    operations.subtraction(num1, num2);
+                    break;
+                case 3:
+                    operations.multiplication(num1, num2);
+                    break;
+                case 4:
+                    operations.division(num1, num2);
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+            }
+
+            System.out.println(); // For better readability in the output
         }
+
+        scanner.close();
     }
 }
 ```
 
 ### Explanation
 
-1. **Main Class**:
-    - A `while` loop runs as long as the user chooses to continue (`flag == 1`).
-    - The user is prompted to enter two integer values.
-    - An `Operation` object is created with the entered values.
-    - The `Mathopr` method of the `Operation` object is called to perform the chosen mathematical operation.
+1. **Class Definition**: `MathOperations` class contains methods for addition, subtraction, multiplication, and division.
+2. **Methods**:
+   - `addition(double num1, double num2)`: Adds two numbers and prints the result.
+   - `subtraction(double num1, double num2)`: Subtracts the second number from the first and prints the result.
+   - `multiplication(double num1, double num2)`: Multiplies two numbers and prints the result.
+   - `division(double num1, double num2)`: Divides the first number by the second and prints the result. It also checks for division by zero.
+3. **Main Method**:
+   - A `Scanner` object is created to read user input.
+   - A `MathOperations` object is created to call the methods.
+   - A `while` loop is used to repeatedly display the menu and perform operations based on user choice until the user chooses to exit.
+   - The `switch` statement is used to call the appropriate method based on the user’s choice.
+   - User inputs are taken for the two numbers needed for the operations.
+   - The program checks for an invalid choice and prompts the user to try again.
 
-2. **Operation Class**:
-    - Contains methods for addition, subtraction, multiplication, and division.
-    - The `Mathopr` method displays a menu for the user to choose an operation and calls the corresponding method based on the user's choice.
+### How to Run
 
-### How to Compile and Run
-
-1. Save the `Main` class in a file named `Main.java`.
-2. Save the `Operation` class in a file named `Operation.java`.
-3. Open a terminal or command prompt and navigate to the directory where the files are saved.
-4. Compile both files using the command:
+1. Save the code in a file named `MathOperations.java`.
+2. Open a terminal or command prompt.
+3. Navigate to the directory where the file is saved.
+4. Compile the program using the command:
    ```sh
-   javac Main.java Operation.java
+   javac MathOperations.java
    ```
-5. Run the `Main` program using the command:
+5. Run the program using the command:
    ```sh
-   java Main
+   java MathOperations
    ```
 6. Follow the on-screen instructions to perform the desired mathematical operations.
+
+This program provides a simple and interactive way to perform basic mathematical operations using a menu-driven approach in Java.
